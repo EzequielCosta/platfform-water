@@ -1,0 +1,189 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://actors/Fish.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Tiles/Assets/Background_2.png" type="Texture" id=2]
+[ext_resource path="res://assets/Tiles/Assets/Background_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/waters/SkyBG2.png" type="Texture" id=4]
+[ext_resource path="res://assets/waters/SkyBG.png" type="Texture" id=5]
+[ext_resource path="res://assets/waters/water.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 518.206, 484 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "waves"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 559, 582 ), Vector2( 671, 590 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 556.5, 500.5 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "waves"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 555, 607 ), Vector2( 387, 607 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 580, 576 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "waves"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 580, 654 ), Vector2( 592, 674 ) ]
+}
+
+[node name="World" type="Node2D"]
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1010, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 518, 246 )
+scale = Vector2( 2.07661, 2.20588 )
+texture = ExtResource( 2 )
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground2"]
+motion_mirroring = Vector2( 1010, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground2/ParallaxLayer"]
+position = Vector2( 525, 243 )
+scale = Vector2( 2.07661, 2.20588 )
+texture = ExtResource( 3 )
+
+[node name="ParallaxBackground4" type="ParallaxBackground" parent="."]
+layer = 1
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground4"]
+motion_mirroring = Vector2( 1039, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground4/ParallaxLayer2"]
+modulate = Color( 1, 1, 1, 0.470588 )
+position = Vector2( 511, 540 )
+scale = Vector2( 1.29853, 1.52 )
+texture = ExtResource( 6 )
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
+layer = -1
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground3"]
+motion_mirroring = Vector2( 1010, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground3/ParallaxLayer3"]
+position = Vector2( 518.206, 484 )
+scale = Vector2( 1.80875, 0.659341 )
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground3/ParallaxLayer3"]
+autoplay = "waves"
+anims/RESET = SubResource( 2 )
+anims/waves = SubResource( 3 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground3"]
+motion_mirroring = Vector2( 1010, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground3/ParallaxLayer4"]
+position = Vector2( 556.5, 500.5 )
+scale = Vector2( 3.9625, 1.015 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground3/ParallaxLayer4"]
+autoplay = "waves"
+anims/RESET = SubResource( 6 )
+anims/waves = SubResource( 7 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground3"]
+motion_mirroring = Vector2( 1010, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground3/ParallaxLayer"]
+position = Vector2( 580, 576 )
+scale = Vector2( 4.22, 1 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground3/ParallaxLayer"]
+autoplay = "waves"
+anims/RESET = SubResource( 8 )
+anims/waves = SubResource( 9 )
+
+[node name="DeepSea" type="ParallaxLayer" parent="ParallaxBackground3"]
+motion_mirroring = Vector2( 600, 0 )
+
+[node name="Fish" parent="." instance=ExtResource( 1 )]
+position = Vector2( 554, 297 )
