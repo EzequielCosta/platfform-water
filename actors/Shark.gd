@@ -24,4 +24,4 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_VisibilityEnabler2D_screen_exited() -> void:
-	_velocity.x = speed.x * (-1)
+	queue_free()
