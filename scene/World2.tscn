@@ -10,7 +10,7 @@
 [ext_resource path="res://scene/BackgroundSky.gd" type="Script" id=8]
 [ext_resource path="res://scene/World2.gd" type="Script" id=9]
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=1]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -44,7 +44,7 @@ tracks/0/keys = {
 "values": [ Vector2( 559, 582 ), Vector2( 671, 590 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -59,7 +59,7 @@ tracks/0/keys = {
 "values": [ Vector2( 556.5, 500.5 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "waves"
 length = 4.0
 loop = true
@@ -76,7 +76,7 @@ tracks/0/keys = {
 "values": [ Vector2( 555, 607 ), Vector2( 387, 607 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -91,7 +91,7 @@ tracks/0/keys = {
 "values": [ Vector2( 580, 576 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 resource_name = "waves"
 length = 4.0
 loop = true
@@ -108,10 +108,10 @@ tracks/0/keys = {
 "values": [ Vector2( 580, 654 ), Vector2( 592, 674 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 502, 63 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 508, 32.5 )
 
 [node name="World2" type="Node2D"]
@@ -121,15 +121,16 @@ __meta__ = {
 }
 
 [node name="Touchable" type="Node2D" parent="."]
-z_index = 1
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="Touchable"]
-modulate = Color( 0.501961, 0.054902, 0.054902, 0 )
-position = Vector2( -192, -77 )
-scale = Vector2( 46.4062, 14.4375 )
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 62, 115 )
+scale = Vector2( 26.625, 8.75 )
+z_index = 1
 normal = ExtResource( 1 )
 pressed = ExtResource( 5 )
-shape = SubResource( 12 )
+shape = SubResource( 1 )
+passby_press = true
 action = "jump"
 
 [node name="BackgroundSky" type="ParallaxBackground" parent="."]
@@ -192,8 +193,8 @@ texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground3/ParallaxLayer4"]
 autoplay = "waves"
-anims/RESET = SubResource( 6 )
-anims/waves = SubResource( 7 )
+anims/RESET = SubResource( 4 )
+anims/waves = SubResource( 5 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground3"]
 motion_mirroring = Vector2( 1010, 0 )
@@ -205,8 +206,11 @@ texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground3/ParallaxLayer"]
 autoplay = "waves"
-anims/RESET = SubResource( 8 )
-anims/waves = SubResource( 9 )
+anims/RESET = SubResource( 6 )
+anims/waves = SubResource( 7 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground3"]
+visible = false
 
 [node name="Fish" parent="." instance=ExtResource( 7 )]
 
@@ -218,7 +222,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sia"]
 position = Vector2( 477, 158 )
-shape = SubResource( 11 )
+shape = SubResource( 8 )
 
 [node name="DeepSia" type="StaticBody2D" parent="."]
 position = Vector2( 320, 646 )
@@ -229,7 +233,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeepSia"]
 position = Vector2( 191, 55 )
-shape = SubResource( 10 )
+shape = SubResource( 9 )
 
 [node name="TimerSpwanShark" type="Timer" parent="."]
 wait_time = 3.0
@@ -238,6 +242,5 @@ autostart = true
 [node name="TimerSpwanBird" type="Timer" parent="."]
 wait_time = 6.0
 autostart = true
-
 [connection signal="timeout" from="TimerSpwanShark" to="." method="_on_TimerSpwan_timeout"]
 [connection signal="timeout" from="TimerSpwanBird" to="." method="_on_TimerSpwanBird_timeout"]
