@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/waters/waves.png" type="Texture" id=1]
+[ext_resource path="res://actors/Wave.gd" type="Script" id=2]
+[ext_resource path="res://assets/waters/water.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 146.5, 35 )
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 37.054
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+
+[sub_resource type="Animation" id=3]
+resource_name = "run"
+length = 2.0
+loop = true
+
+[node name="Wave" type="RigidBody2D"]
+position = Vector2( 578, 159 )
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+linear_velocity = Vector2( -100, -80 )
+applied_force = Vector2( -100, 0 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 284.0 ],
+"_edit_vertical_guides_": [ -639.0 ]
+}
+
+[node name="AreaCollisionEnemy" type="Area2D" parent="."]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="Sprite" type="Sprite" parent="AreaCollisionEnemy"]
+modulate = Color( 0, 1, 0.764706, 0.427451 )
+position = Vector2( 6, 145 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="Sprite2" type="Sprite" parent="AreaCollisionEnemy"]
+visible = false
+modulate = Color( 0, 1, 0.764706, 1 )
+position = Vector2( -2.5, 148 )
+scale = Vector2( 0.98875, 1 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="Sprite3" type="Sprite" parent="AreaCollisionEnemy"]
+visible = false
+modulate = Color( 0, 1, 0.764706, 1 )
+position = Vector2( -9, 136 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="Sprite4" type="Sprite" parent="AreaCollisionEnemy"]
+visible = false
+modulate = Color( 0, 1, 0.764706, 1 )
+position = Vector2( -8, 114 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="CollisionEnemy" type="CollisionShape2D" parent="AreaCollisionEnemy"]
+position = Vector2( 13.5, 144 )
+shape = SubResource( 7 )
+
+[node name="AreaCollisionEnemy2" type="Area2D" parent="."]
+
+[node name="CollisionEnemy" type="CollisionShape2D" parent="AreaCollisionEnemy2"]
+position = Vector2( 13.5, 144 )
+shape = SubResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="AreaCollisionEnemy2"]
+modulate = Color( 1, 1, 1, 0.45098 )
+position = Vector2( 5, 108 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -6, 138 )
+rotation = 1.03847
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "run"
+anims/RESET = SubResource( 4 )
+anims/run = SubResource( 3 )

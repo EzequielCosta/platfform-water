@@ -3,6 +3,7 @@ extends Node2D
 
 var shark = load("res://actors/Shark.tscn")
 var bird = load("res://actors/Bird.tscn")
+var wave = load("res://actors/Wave.tscn")
 var positions_shark: Array;
 var positions_bird: Array;
 var rand;
@@ -48,3 +49,17 @@ func spwan_bird():
 
 func _on_TimerSpwanBird_timeout() -> void:
 	spwan_bird()
+
+
+func spwan_waves():
+	for item in 1:
+		var wave_instance = wave.instance()
+		rand.randomize()
+		wave_instance.position.y = 600
+		rand.randomize()
+		wave_instance.position.x = 1000
+		add_child(wave_instance)
+
+
+func _on_TimerSpwanWave_timeout() -> void:
+	spwan_waves()
