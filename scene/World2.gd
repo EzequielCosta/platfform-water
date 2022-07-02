@@ -48,3 +48,8 @@ func spwan_bird():
 
 func _on_TimerSpwanBird_timeout() -> void:
 	spwan_bird()
+
+
+func _on_Sia_body_exited(body):
+	if (body.name == "Fish"):
+		body.out_water()

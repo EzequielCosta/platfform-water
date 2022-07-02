@@ -1,0 +1,194 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/OpenOceanArt/Other/WikndWakerWater_Background.png" type="Texture" id=1]
+[ext_resource path="res://uix/GameOver.gd" type="Script" id=2]
+[ext_resource path="res://assets/btn/ButtonRestart.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/SuperMarketRegular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/menu/sprites/s_background/f03ddb17-a0c4-4c9d-a5d9-477a8f246711.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "waves"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Deep2:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.027451 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Deep3:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "waves2"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Deep1:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 100
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0313726, 0.164706, 0.686275, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deep1" type="TextureRect" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 1.02818, 1.02818 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deep2" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.115865 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1000, 600 )
+rect_scale = Vector2( 0.9, 0.9 )
+rect_clip_content = true
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deep3" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.0909091 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1000, 600 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deep4" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.379103 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1000, 600 )
+rect_scale = Vector2( 0.9, 0.9 )
+rect_clip_content = true
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deep5" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.379103 )
+anchor_left = 0.296
+anchor_top = 0.0988
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1000, 600 )
+rect_scale = Vector2( 0.9, 0.9 )
+rect_clip_content = true
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "waves"
+anims/waves = SubResource( 1 )
+anims/waves2 = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -199.0
+margin_top = -141.0
+margin_right = 199.0
+margin_bottom = 141.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 398.0
+margin_bottom = 81.0
+theme = SubResource( 4 )
+text = "GAME OVER"
+align = 1
+uppercase = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = 4.0
+margin_right = 512.0
+margin_bottom = 98.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="CenterContainer"]
+margin_left = 411.0
+margin_right = 612.0
+margin_bottom = 203.0
+focus_mode = 0
+toggle_mode = true
+pressed = true
+action_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 3 )
+flat = true
+
+[connection signal="pressed" from="CenterContainer/Button2" to="." method="_on_Button2_pressed"]
