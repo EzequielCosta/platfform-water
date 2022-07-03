@@ -1,7 +1,9 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://actors/Fish2.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/fish_pack.png" type="Texture" id=2]
+[ext_resource path="res://assets/sounds/jump/jump_03.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sounds/sounds_ping_pong_8bit/ping_pong_8bit_beeep.ogg" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 56.5, 39 )
@@ -329,7 +331,7 @@ visible = false
 modulate = Color( 1, 1, 1, 0.882353 )
 scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 17 )
-frame = 7
+frame = 1
 speed_scale = 2.0
 playing = true
 flip_h = true
@@ -342,12 +344,12 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 59, 21 )
+visible = false
+position = Vector2( 50, 146 )
 rotating = true
-current = true
 limit_left = -1000
-limit_top = -50
-limit_bottom = 700
+limit_top = 0
+limit_bottom = 606
 limit_smoothed = true
 smoothing_enabled = true
 drag_margin_right = 0.02
@@ -368,9 +370,9 @@ anims/without_breath = SubResource( 23 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 2 )
 flip_h = true
-vframes = 6
 hframes = 8
-frame = 16
+vframes = 6
+frame = 23
 
 [node name="TimerNeedWater" type="Timer" parent="."]
 wait_time = 20.0
@@ -378,6 +380,13 @@ autostart = true
 
 [node name="TimerDying" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="AudioDamage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
 [connection signal="area_entered" from="AreaEnemy" to="." method="_on_AreaEnemy_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="TimerNeedWater" to="." method="_on_TimerNeedWater_timeout"]

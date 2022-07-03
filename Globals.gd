@@ -1,5 +1,5 @@
 extends Node
 
 
-var life_player_max = 5
-
+var max_life_player = 10
+var score = 0

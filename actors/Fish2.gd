@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal take_damage(life_remaing)
+signal die(life_remain)
 
 var _velocity:Vector2 = Vector2.ZERO
 var speed:Vector2 = Vector2(100, 400)
@@ -13,19 +15,16 @@ onready var ray_cast := $RayCastCheckInWater
 var life_player = 10;
 var die = false
 var into_water = false
-var TIME_NEED_WATER = 30
+var enter_in_water = false
+var TIME_NEED_WATER = 20
 var NEED_WATER = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
+	#$AudioDamage.play()
 
 
 func _physics_process(delta: float) -> void:
-	
-	#print("Time remaning: ", $TimerDying.time_left)
-	#print("NEED_WATER: ", NEED_WATER )
-	#print("CURRENT ANIMATION: " + $AnimationPlayer.current_animation)
 	
 	if (!die):
 	
@@ -36,16 +35,21 @@ func _physics_process(delta: float) -> void:
 		if (NEED_WATER and $AnimationPlayer.current_animation != "without_breath"):
 			$AnimationPlayer.play("without_breath")
 			$TimerDying.start()
-		elif (ray_cast.is_colliding() and ray_cast.get_collider().name == "Sia"):
+		elif (enter_in_water):	
+		#elif (ray_cast.is_colliding() and ray_cast.get_collider().name == "Sia"):
+			
 			$TimerDying.stop()
 			$AnimationPlayer.play("run")
 			$TimerNeedWater.start(TIME_NEED_WATER)
 			NEED_WATER = false
-			into_water = true
+			#into_water = true
+			enter_in_water = false
+			
 			
 			
 		if (Input.is_action_just_pressed("jump")):
 			_velocity.y = -speed.y
+			$AudioJump.play()
 		else:	
 			_velocity.y += gravity * delta
 		
@@ -57,28 +61,30 @@ func _physics_process(delta: float) -> void:
 		move_and_slide(_velocity)
 		
 func in_water():
-	pass
+	into_water = true
+	enter_in_water = true
 	
 func out_water():
 	into_water = false
+	enter_in_water = false
 
 func take_damage(value: float):
+	if (die):
+		return
+	print(life_player)	
 	life_player -= value
 	
 	if (life_player == 0):
+		emit_signal("die", life_player)
 		_die()
-		#die = true
-		#$AnimationPlayer.play("death")
-
 	else:
-		print("Damage")
+		$AudioDamage.play()
+		emit_signal("take_damage", life_player)
 		$AnimationPlayer.call_deferred("play","damage" )
-		#$AnimationPlayer.play("damage")
 	
 
 func _on_AreaEnemy_area_entered(area: Area2D) -> void:
 	if (area.is_in_group("Enemy")):
-		print("take damage")
 		take_damage(1)
 
 
@@ -87,7 +93,9 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 		$AnimationPlayer.stop()
 		$AnimationPlayer.play("run")
 	elif(anim_name == "death"):
-		get_tree().call_deferred('change_scene_to', game_over_scene )
+		pass
+		#emit_signal("die", life_player)
+		#get_tree().call_deferred('change_scene_to', a )
 
 
 
@@ -99,16 +107,12 @@ func _on_TimerNeedWater_timeout() -> void:
 
 func _on_TimerDying_timeout() -> void:
 	_die()
-	#$AnimationPlayer.play("death")
-	#die = true
 
 func gravity_die() -> void:
 	gravity = 3000
 	
 func _die():
-	$AreaEnemy.monitorable = false
-	$AreaEnemy.monitoring = false
-	$CollisionShape2D.disabled = true
-	$AnimationPlayer.play("death")
 	die = true
+	$AnimationPlayer.call_deferred("play","death")
+	
 	

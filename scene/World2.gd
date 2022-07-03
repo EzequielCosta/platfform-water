@@ -3,17 +3,20 @@ extends Node2D
 
 var shark = load("res://actors/Shark.tscn")
 var bird = load("res://actors/Bird.tscn")
+onready var transition = $Transition
 var positions_shark: Array;
 var positions_bird: Array;
 var rand;
-const count_shark_for_time = 3
-const count_bird_for_time = 1
+const count_shark_for_time = 5
+const count_bird_for_time = 3
+onready var life_bar = $LifeBar/HBoxContainer/CenterContainer/ProgressBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	positions_shark = range(500, 700, 10)
+	positions_shark = range(500, 600, 10)
 	positions_bird = range(0, 400, 10)
 	rand = RandomNumberGenerator.new()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -53,3 +56,28 @@ func _on_TimerSpwanBird_timeout() -> void:
 func _on_Sia_body_exited(body):
 	if (body.name == "Fish"):
 		body.out_water()
+
+
+func _on_Sia_body_entered(body: Node) -> void:
+	if (body.name == "Fish"):
+		body.in_water()
+
+
+func _on_Fish_take_damage(life_remaing) -> void:
+	_calculate_lifebar(life_remaing)
+	#var percente_lifes_remain = (life_remaing / Globals.max_life_player) * 100
+	#life_bar.value = percente_lifes_remain
+	yield(get_tree().create_timer(1), "timeout")
+
+
+func _on_Fish_die(life_remain) -> void:
+	_calculate_lifebar(life_remain)
+	#var percente_lifes_remain2 = (life_remain / Globals.max_life_player) * 100
+	#life_bar.value = percente_lifes_remain2
+	
+	transition.play("res://uix/GameOver.tscn")
+	#get_tree().call_deferred('change_scene_to', game_over_scene )
+	
+func _calculate_lifebar(life_remain):
+	var percente_lifes_remain = (life_remain / Globals.max_life_player) * 100
+	life_bar.value = percente_lifes_remain

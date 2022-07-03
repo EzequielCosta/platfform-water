@@ -1,24 +1,23 @@
 extends Control
 
+var fish_demo = load("res://uix/FishDemo.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_PauseButton_pressed():
-	get_tree().change_scene("res://scene/World2.tscn")
+	$PauseButton.rect_pivot_offset = $PauseButton.rect_size / 2
+	$ExitButton.rect_pivot_offset = $ExitButton.rect_size / 2
 
 
 func _on_ExitBUtton_pressed():
 	get_tree().quit()
+
+
+func _on_TimerSpawnFish_timeout() -> void:
+	pass
+	
+
+func _on_ExitButton_pressed() -> void:
+	get_tree().quit()
+
+
+func _on_PauseButton_pressed() -> void:
+	$Transition.play("res://scene/World2.tscn")

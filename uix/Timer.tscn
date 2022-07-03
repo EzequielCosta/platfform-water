@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://uix/Timer.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/SuperMarketDisplay.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="Timer" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="LabelTimer" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_top = 25.0
+margin_bottom = 26.0
+theme = SubResource( 2 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

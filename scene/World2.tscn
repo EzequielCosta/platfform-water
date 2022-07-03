@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
+[ext_resource path="res://uix/LifeBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/Tiles/Assets/Background_2.png" type="Texture" id=2]
 [ext_resource path="res://assets/Tiles/Assets/Background_1.png" type="Texture" id=3]
 [ext_resource path="res://assets/waters/SkyBG2.png" type="Texture" id=4]
@@ -8,6 +9,9 @@
 [ext_resource path="res://actors/Fish2.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/BackgroundSky.gd" type="Script" id=8]
 [ext_resource path="res://scene/World2.gd" type="Script" id=9]
+[ext_resource path="res://assets/sounds/Riverside Ride Pack/Riverside Ride Long Loop.wav" type="AudioStream" id=10]
+[ext_resource path="res://uix/Timer.tscn" type="PackedScene" id=11]
+[ext_resource path="res://uix/Transition.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -111,13 +115,26 @@ tracks/0/keys = {
 extents = Vector2( 502, 63 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 508, 32.5 )
+extents = Vector2( 518, 32.5 )
 
 [node name="World2" type="Node2D"]
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
+
+[node name="Timer" parent="." instance=ExtResource( 11 )]
+
+[node name="LifeBar" parent="." instance=ExtResource( 1 )]
+margin_left = 95.0
+margin_top = 58.0
+margin_right = 95.0
+margin_bottom = 58.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -2.622
+autoplay = true
 
 [node name="BackgroundSky" type="ParallaxBackground" parent="."]
 script = ExtResource( 8 )
@@ -149,7 +166,7 @@ motion_mirroring = Vector2( 1039, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground4/ParallaxLayer2"]
 modulate = Color( 1, 1, 1, 0.470588 )
-position = Vector2( 511, 540 )
+position = Vector2( 513, 471 )
 scale = Vector2( 1.29853, 1.52 )
 texture = ExtResource( 6 )
 
@@ -215,7 +232,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sia"]
-position = Vector2( 477, 158 )
+position = Vector2( 477, 110 )
 shape = SubResource( 8 )
 
 [node name="DeepSia" type="StaticBody2D" parent="."]
@@ -226,7 +243,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeepSia"]
-position = Vector2( 191, 55 )
+position = Vector2( 197, -34 )
 shape = SubResource( 9 )
 
 [node name="TimerSpwanShark" type="Timer" parent="."]
@@ -237,6 +254,15 @@ autostart = true
 wait_time = 6.0
 autostart = true
 
+[node name="TimerScore" type="Timer" parent="."]
+autostart = true
+
+[node name="Transition" parent="." instance=ExtResource( 12 )]
+visible = false
+
+[connection signal="die" from="Fish" to="." method="_on_Fish_die"]
+[connection signal="take_damage" from="Fish" to="." method="_on_Fish_take_damage"]
+[connection signal="body_entered" from="Sia" to="." method="_on_Sia_body_entered"]
 [connection signal="body_exited" from="Sia" to="." method="_on_Sia_body_exited"]
 [connection signal="timeout" from="TimerSpwanShark" to="." method="_on_TimerSpwan_timeout"]
 [connection signal="timeout" from="TimerSpwanBird" to="." method="_on_TimerSpwanBird_timeout"]

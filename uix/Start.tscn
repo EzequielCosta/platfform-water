@@ -1,56 +1,68 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/btn/ButtonStart.png" type="Texture" id=1]
 [ext_resource path="res://assets/btn/ButtonExit.png" type="Texture" id=2]
 [ext_resource path="res://uix/Start.gd" type="Script" id=3]
 [ext_resource path="res://assets/fonts/SuperMarketLeftyODS.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/OpenOceanArt/Other/WikndWakerWater_Background.png" type="Texture" id=5]
 [ext_resource path="res://assets/menu/sprites/s_background/f03ddb17-a0c4-4c9d-a5d9-477a8f246711.png" type="Texture" id=6]
 [ext_resource path="res://assets/fonts/SuperMarketTallTilt.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://uix/Transition.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sounds/one_0.mp3" type="AudioStream" id=9]
 
-[sub_resource type="Animation" id=1]
-resource_name = "waves"
-length = 2.0
-loop = true
+[sub_resource type="Animation" id=7]
+length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Deep2:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.027451 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Deep3:modulate")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "waves2"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Deep1:modulate")
+tracks/0/path = NodePath("PauseButton:rect_scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ExitButton:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.7, 0.7 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "buttons_animate"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PauseButton:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.7, 0.7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ExitButton:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.7, 0.7 ), Vector2( 0.5, 0.5 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -74,6 +86,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -494.522, 0 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -15.731
+autoplay = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -81,111 +101,48 @@ anchor_bottom = 1.0
 texture = ExtResource( 6 )
 expand = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.0313726, 0.164706, 0.686275, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Deep1" type="TextureRect" parent="."]
-visible = false
-margin_right = 1024.0
-margin_bottom = 768.0
-rect_scale = Vector2( 1.02818, 1.02818 )
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Deep2" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.115865 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 168.0
-rect_min_size = Vector2( 1000, 600 )
-rect_scale = Vector2( 0.9, 0.9 )
-rect_clip_content = true
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Deep3" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.0909091 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 168.0
-rect_min_size = Vector2( 1000, 600 )
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Deep4" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.379103 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 168.0
-rect_min_size = Vector2( 1000, 600 )
-rect_scale = Vector2( 0.9, 0.9 )
-rect_clip_content = true
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Deep5" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0.379103 )
-anchor_left = 0.296
-anchor_top = 0.0988
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = 303.104
-margin_bottom = 227.28
-rect_min_size = Vector2( 1000, 600 )
-rect_scale = Vector2( 0.9, 0.9 )
-rect_clip_content = true
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-autoplay = "waves"
-anims/waves = SubResource( 1 )
-anims/waves2 = SubResource( 2 )
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="PauseButton" type="Button" parent="."]
 anchor_left = 0.5
-anchor_top = 0.48
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.51
-margin_left = -20.0
-margin_top = 50.0
-margin_right = 20.0
-margin_bottom = 20.0
+anchor_bottom = 0.5
+margin_left = -220.0
+margin_top = 22.0
+margin_right = -14.0
+margin_bottom = 225.0
+rect_scale = Vector2( 0.5, 0.5 )
+focus_mode = 0
+toggle_mode = true
+pressed = true
+action_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 1 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="PauseButton" type="TouchScreenButton" parent="HBoxContainer"]
-position = Vector2( -228.418, -13.2142 )
-scale = Vector2( 0.603043, 0.631231 )
-normal = ExtResource( 1 )
-action = "click"
-
-[node name="ExitBUtton" type="TouchScreenButton" parent="HBoxContainer"]
-position = Vector2( 135.918, -16.9897 )
-scale = Vector2( 0.620686, 0.61367 )
-normal = ExtResource( 2 )
-action = "click"
+[node name="ExitButton" type="Button" parent="."]
+margin_left = 561.0
+margin_top = 303.0
+margin_right = 761.0
+margin_bottom = 501.0
+rect_scale = Vector2( 0.7, 0.7 )
+focus_mode = 0
+toggle_mode = true
+pressed = true
+action_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 2 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "change_color_bg"
+autoplay = "buttons_animate"
+anims/RESET = SubResource( 7 )
+anims/buttons_animate = SubResource( 8 )
 anims/change_color_bg = SubResource( 3 )
 
 [node name="Label" type="Label" parent="."]
@@ -198,14 +155,26 @@ margin_top = -164.2
 margin_right = 206.5
 margin_bottom = 164.2
 theme = SubResource( 5 )
-custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
 text = "Fly Fish"
 align = 1
 uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sprite" type="Sprite" parent="."]
-[connection signal="pressed" from="HBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
-[connection signal="pressed" from="HBoxContainer/ExitBUtton" to="." method="_on_ExitBUtton_pressed"]
+
+[node name="TimerSpawnFish" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="Transition" parent="." instance=ExtResource( 8 )]
+visible = false
+
+[connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="timeout" from="TimerSpawnFish" to="." method="_on_TimerSpawnFish_timeout"]
