@@ -65,18 +65,11 @@ func _on_Sia_body_entered(body: Node) -> void:
 
 func _on_Fish_take_damage(life_remaing) -> void:
 	_calculate_lifebar(life_remaing)
-	#var percente_lifes_remain = (life_remaing / Globals.max_life_player) * 100
-	#life_bar.value = percente_lifes_remain
-	yield(get_tree().create_timer(1), "timeout")
 
 
 func _on_Fish_die(life_remain) -> void:
 	_calculate_lifebar(life_remain)
-	#var percente_lifes_remain2 = (life_remain / Globals.max_life_player) * 100
-	#life_bar.value = percente_lifes_remain2
-	
 	transition.play("res://uix/GameOver.tscn")
-	#get_tree().call_deferred('change_scene_to', game_over_scene )
 	
 func _calculate_lifebar(life_remain):
 	var percente_lifes_remain = (life_remain / Globals.max_life_player) * 100

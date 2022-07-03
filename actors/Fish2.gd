@@ -71,11 +71,10 @@ func out_water():
 func take_damage(value: float):
 	if (die):
 		return
-	print(life_player)	
+	
 	life_player -= value
 	
 	if (life_player == 0):
-		emit_signal("die", life_player)
 		_die()
 	else:
 		$AudioDamage.play()
@@ -114,5 +113,6 @@ func gravity_die() -> void:
 func _die():
 	die = true
 	$AnimationPlayer.call_deferred("play","death")
+	emit_signal("die", life_player)
 	
 	
